@@ -1,0 +1,38 @@
+<div>
+  Inserisci filtro <input type="text" [(ngModel)]="listFilter" />
+  <h4>Filtrato per {{ listFilter }}</h4>
+</div>
+
+<div>Valore del rating: {{ fromStelle }}</div>
+<br />
+
+<button (click)="mostraNascondi()">Clicca per visualizzare le immagini</button>
+
+<br /><br />
+
+<div>
+  <table>
+    <tr>
+      <th>Immagini</th>
+      <th>Prodotto</th>
+      <th>Codice</th>
+      <th>Disponibile</th>
+      <th>Prezzo</th>
+      <th>Rating 5 Stelle</th>
+    </tr>
+    <tr *ngFor="let a of prodottiFiltrati">
+      <td><img *ngIf="mostraImmagine" [src]="a.imageUrl" width="70px" /></td>
+      <td>{{ a.productName }}</td>
+      <td>{{ a.productCode | convertToSpace:"-" }}</td>
+      <td>{{ a.releaseDate }}</td>
+      <td>{{ a.price | currency: "EUR":"symbol"}}</td>
+      <!--<td>{{ a.starRating }}</td>-->
+      <td>
+        <stella
+          [rating]="a.starRating"
+          (dalleStelle)="onStelleClick($event)"
+        ></stella>
+      </td>
+    </tr>
+  </table>
+</div>
